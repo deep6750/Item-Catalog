@@ -151,7 +151,7 @@ def gconnect():
     print "done!"
     return output
 
-    # DISCONNECT - Revoke a current user's token and reset their login_session
+    # DISCONNECT - Revoke a current user's token and reset their login_session 
 
 
 @app.route('/gdisconnect')
@@ -168,11 +168,12 @@ def gdisconnect():
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
     if result['status'] != '200':
-
+        
         get_response = make_response(
             json.dumps('Failed to revoke token for given user.'), 400)
         get_response.headers['Content-Type'] = 'application/json'
         return get_response
+
 
 
 # function to disconnect user from google ID
@@ -193,14 +194,13 @@ def disconnect():
         return redirect(url_for('showRestaurants'))
 
 
+
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/JSON')
 def menuItemJSON(restaurant_id, menu_id):
     Menu_Item = time_bound.query(MenuItem).filter_by(id=menu_id).one()
     return jsonify(Menu_Item=Menu_Item.serialize)
 
 # JSON APIs to view Restaurant Information
-
-
 @app.route('/restaurant/<int:restaurant_id>/menu/JSON')
 def restaurantMenuJSON(restaurant_id):
     restaurant = time_bound.query(Restaurant).filter_by(id=restaurant_id).one()
@@ -209,7 +209,6 @@ def restaurantMenuJSON(restaurant_id):
     return jsonify(MenuItems=[i.serialize for i in items])
 
 # function to show all restaurants
-
 
 @app.route('/')
 @app.route('/restaurant/')
@@ -222,11 +221,11 @@ def showRestaurants():
     else:
         return render_template('Restaurants.html', restaurants=restaurants)
 
-
 @app.route('/restaurant/JSON')
 def restaurantsJSON():
     restaurants = time_bound.query(Restaurant).all()
     return jsonify(restaurants=[r.serialize for r in restaurants])
+
 
 
 # function to edit name restaurant
@@ -270,6 +269,8 @@ def newRestaurant():
         return redirect(url_for('showRestaurants'))
     else:
         return render_template('NewRestaurant.html')
+
+
 
 
 # function to Show  restaurant menu
@@ -372,6 +373,7 @@ def deleteMenuItem(restaurant_id, menu_id):
             return redirect(url_for('showMenu', restaurant_id=restaurant_id))
         else:
             return render_template('DeleteMenuItem.html', item=itemToDelete)
+
 
 
 # function to edit  menu item
