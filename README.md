@@ -32,4 +32,4 @@
 * Now setup by : python database_setup.py
 * Now load menu items by : python lotsofmenus.py
 * Now Start Local server By running : python project.py
-* open in your browser :- https://localhost:9000
+* open in your browser :- https://localhost:5000
